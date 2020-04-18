@@ -70,13 +70,13 @@ function map(array, fn) {
  * function.
  */
 function mapDomain(string, fn) {
-	const parts = string.split('@');
+	const atPos = string.lastIndexOf('@');
 	let result = '';
-	if (parts.length > 1) {
+	if (atPos > -1) {
 		// In email addresses, only the domain name should be punycoded. Leave
 		// the local part (i.e. everything up to `@`) intact.
-		result = parts[0] + '@';
-		string = parts[1];
+		result = string.substring(0, atPos + 1);
+		string = string.substring(atPos + 1);
 	}
 	// Avoid `split(regex)` for IE8 compatibility. See #17.
 	string = string.replace(regexSeparators, '\x2E');
