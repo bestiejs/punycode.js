@@ -14,7 +14,7 @@ const initialN = 128; // 0x80
 const delimiter = '-'; // '\x2D'
 
 /** Regular expressions */
-const regexPunycode = /^xn--/;
+const regexPunycode = /^xn--/i;
 const regexNonASCII = /[^\0-\x7E]/; // non-ASCII chars
 const regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g; // RFC 3490 separators
 
@@ -386,7 +386,7 @@ const encode = function(input) {
 const toUnicode = function(input) {
 	return mapDomain(input, function(string) {
 		return regexPunycode.test(string)
-			? decode(string.slice(4).toLowerCase())
+			? decode(string.slice(4))
 			: string;
 	});
 };
